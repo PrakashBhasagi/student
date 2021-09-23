@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Student Controller
- * Open EndPoint: http://localhost:8080/api/student
+ * Student Controller Open EndPoint: http://localhost:8080/api/student
  */
 @Api(tags = "Student Controller", value = "StudentController")
 @RestController
@@ -22,20 +21,20 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
-
     /**
      * @EndPoint: http://localhost:8080/api/student/all
      * @return "All Student details"
      */
     @ApiOperation(value = "Find all students details")
     @GetMapping("/all")
-    public List<Student> getAllStudents(){
+    public List<Student> getAllStudents() {
 
         return studentService.getAllStudents();
     }
 
     /**
      * EndPoint: http://localhost:8080/api/student/{class}/{roll}
+     * 
      * @param studentClass
      * @param studentRoll
      * @return "Student details by class and roll number"
@@ -43,7 +42,7 @@ public class StudentController {
     @ApiOperation(value = "Find students details by Class and Roll Number")
     @GetMapping("/{class}/{roll}")
     public Student getStudentByClassAndRollNo(@PathVariable(value = "class") Integer studentClass,
-                                              @PathVariable(value = "roll") Integer studentRoll){
+            @PathVariable(value = "roll") Integer studentRoll) {
         return studentService.getStudentByClassAndRollNo(studentClass, studentRoll);
     }
 
@@ -54,7 +53,7 @@ public class StudentController {
      */
     @ApiOperation(value = "Find all students details by Class")
     @GetMapping("/{class}")
-    public List<Student> getStudentByClass(@PathVariable(value = "class") Integer studentClass){
+    public List<Student> getStudentByClass(@PathVariable(value = "class") Integer studentClass) {
         return studentService.getStudentByClass(studentClass);
     }
 
@@ -69,9 +68,9 @@ public class StudentController {
     public Student savestudent(@RequestBody Student student) throws ResourceNotFoundException {
 
         List<Student> s = studentService.getStudentsByRollNo(student.getStudentRollNo());
-        if(!s.isEmpty()) {
-            for(Student x: s){
-                if(student.getStudentClass() == x.getStudentClass()){
+        if (!s.isEmpty()) {
+            for (Student x : s) {
+                if (student.getStudentClass() == x.getStudentClass()) {
                     throw new ResourceNotFoundException("Student Already exists in database");
                 }
             }
@@ -101,7 +100,7 @@ public class StudentController {
     @ApiOperation(value = "Delete student details")
     @DeleteMapping("/delete/{class}/{roll}")
     public void deleteStudentById(@PathVariable(value = "class") Integer studentClass,
-                                  @PathVariable(value = "roll") Integer studentRoll) throws ResourceNotFoundException {
+            @PathVariable(value = "roll") Integer studentRoll) throws ResourceNotFoundException {
 
         studentService.deleteStudent(studentClass, studentRoll);
     }

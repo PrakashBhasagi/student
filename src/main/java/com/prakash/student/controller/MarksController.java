@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Marks Controller
- * Open EndPoint: http://localhost:8080/api/marks
+ * Marks Controller Open EndPoint: http://localhost:8080/api/marks
  */
 @Api(tags = "Marks Controller", value = "MarksController")
 @RestController
@@ -38,13 +37,13 @@ public class MarksController {
     @ApiOperation(value = "Save marks of students by Class and Roll Number")
     @PostMapping("/{class}/{roll}")
     public Marks savemarks(@PathVariable(value = "class") Integer studentClass,
-                           @PathVariable(value = "roll") Integer studentRoll,
-                           @RequestBody Marks marks) throws ResourceNotFoundException {
+            @PathVariable(value = "roll") Integer studentRoll, @RequestBody Marks marks)
+            throws ResourceNotFoundException {
 
-        Student s = studentService.getStudentByClassAndRollNo(studentClass,studentRoll);
-        if(s == null) {
+        Student s = studentService.getStudentByClassAndRollNo(studentClass, studentRoll);
+        if (s == null) {
             throw new ResourceNotFoundException("Student not found");
-        }else{
+        } else {
             marks.setStudent(s);
             return marksService.save(marks);
         }
@@ -54,19 +53,19 @@ public class MarksController {
      * @EndPoint: http://localhost:8080/api/marks/{class}/{roll}
      * @param studentClass
      * @param studentRoll
-     * @return  "Details of Students by class and roll number"
+     * @return "Details of Students by class and roll number"
      * @throws ResourceNotFoundException
      */
     @ApiOperation(value = "Find students marks and details by Class and Roll Number")
     @GetMapping("/{class}/{roll}")
     public Marks getMarks(@PathVariable(value = "class") Integer studentClass,
-                          @PathVariable(value = "roll") Integer studentRoll) throws ResourceNotFoundException {
+            @PathVariable(value = "roll") Integer studentRoll) throws ResourceNotFoundException {
 
-        Student s = studentService.getStudentByClassAndRollNo(studentClass,studentRoll);
+        Student s = studentService.getStudentByClassAndRollNo(studentClass, studentRoll);
 
-        if(s == null) {
+        if (s == null) {
             throw new ResourceNotFoundException("Student not found");
-        }else{
+        } else {
             return marksService.getMarks(s);
         }
     }
@@ -80,13 +79,13 @@ public class MarksController {
     @ApiOperation(value = "Delete marks of students by Class and Roll Number")
     @DeleteMapping("/delete/{class}/{roll}/all")
     public void deleteMarks(@PathVariable(value = "class") Integer studentClass,
-                          @PathVariable(value = "roll") Integer studentRoll) throws ResourceNotFoundException {
+            @PathVariable(value = "roll") Integer studentRoll) throws ResourceNotFoundException {
 
-        Student s = studentService.getStudentByClassAndRollNo(studentClass,studentRoll);
+        Student s = studentService.getStudentByClassAndRollNo(studentClass, studentRoll);
 
-        if(s == null) {
+        if (s == null) {
             throw new ResourceNotFoundException("Student not found");
-        }else{
+        } else {
             marksService.deleteMarksById(s.getId());
         }
     }
@@ -101,14 +100,14 @@ public class MarksController {
     @ApiOperation(value = "Edit all marks of students by Class and Roll Number")
     @PutMapping("/edit/{class}/{roll}")
     public void editMarks(@PathVariable(value = "class") Integer studentClass,
-                          @PathVariable(value = "roll") Integer studentRoll,
-                          @RequestBody Marks marks) throws ResourceNotFoundException {
+            @PathVariable(value = "roll") Integer studentRoll, @RequestBody Marks marks)
+            throws ResourceNotFoundException {
 
-        Student s = studentService.getStudentByClassAndRollNo(studentClass,studentRoll);
+        Student s = studentService.getStudentByClassAndRollNo(studentClass, studentRoll);
 
-        if(s == null) {
+        if (s == null) {
             throw new ResourceNotFoundException("Student not found");
-        }else{
+        } else {
             Marks m = marksService.getMarks(s);
             m.setMarks1(marks.getMarks1());
             m.setMarks2(marks.getMarks2());
@@ -131,16 +130,16 @@ public class MarksController {
     @ApiOperation(value = "Edit marks of students by Class and Roll Number by specifying subject number")
     @DeleteMapping("/delete/{class}/{roll}/{subject}")
     public void deleteMarks(@PathVariable(value = "class") Integer studentClass,
-                            @PathVariable(value = "roll") Integer studentRoll,
-                            @PathVariable(value = "subject") Integer subject) throws ResourceNotFoundException {
+            @PathVariable(value = "roll") Integer studentRoll, @PathVariable(value = "subject") Integer subject)
+            throws ResourceNotFoundException {
 
-        Student s = studentService.getStudentByClassAndRollNo(studentClass,studentRoll);
-        if(s == null) {
+        Student s = studentService.getStudentByClassAndRollNo(studentClass, studentRoll);
+        if (s == null) {
             throw new ResourceNotFoundException("Student not found");
-        }else{
+        } else {
             Marks m = marksService.getMarks(s);
 
-            switch (subject){
+            switch (subject) {
                 case 1:
                     m.setMarks1(null);
                     break;
@@ -161,7 +160,7 @@ public class MarksController {
                     break;
                 default:
                     System.out.println("subject does not exists");
-                    throw  new ResourceNotFoundException("subject does not exists");
+                    throw new ResourceNotFoundException("subject does not exists");
             }
             marksService.updateMarks(m);
         }
@@ -177,7 +176,7 @@ public class MarksController {
     @GetMapping("/top-score/{subject}")
     public List<Marks> topScorer(@PathVariable("subject") Integer sub) throws ResourceNotFoundException {
 
-        switch (sub){
+        switch (sub) {
             case 1:
                 return marksService.getTopMarks1();
             case 2:
@@ -192,7 +191,7 @@ public class MarksController {
                 return marksService.getTopMarks6();
             default:
                 System.out.println("subject does not exists");
-                throw  new ResourceNotFoundException("subject does not exists");
+                throw new ResourceNotFoundException("subject does not exists");
         }
     }
 
@@ -203,7 +202,7 @@ public class MarksController {
      */
     @ApiOperation(value = "Find Aggregate details of students by Class and Roll Number")
     @GetMapping("/aggregate/{ag}")
-    public List<Student> getAgrregate(@PathVariable(value = "ag") Integer aggregate){
+    public List<Student> getAgrregate(@PathVariable(value = "ag") Integer aggregate) {
         return marksService.getAggregate(aggregate);
     }
 }

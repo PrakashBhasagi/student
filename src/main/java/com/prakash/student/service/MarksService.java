@@ -15,7 +15,7 @@ public class MarksService {
 
     @Autowired
     MarksRepository marksRepository;
-    
+
     @Autowired
     StudentRepository studentRepository;
 
@@ -31,7 +31,6 @@ public class MarksService {
         marksRepository.deleteById(id);
     }
 
-
     public void updateMarks(Marks m) {
         marksRepository.save(m);
     }
@@ -45,34 +44,38 @@ public class MarksService {
         Double top = marksRepository.findMaxMarks2();
         return marksRepository.findAllByMarks2(top);
     }
+
     public List<Marks> getTopMarks3() {
         Double top = marksRepository.findMaxMarks3();
         return marksRepository.findAllByMarks3(top);
     }
+
     public List<Marks> getTopMarks4() {
         Double top = marksRepository.findMaxMarks4();
         return marksRepository.findAllByMarks4(top);
     }
+
     public List<Marks> getTopMarks5() {
         Double top = marksRepository.findMaxMarks5();
         return marksRepository.findAllByMarks5(top);
     }
+
     public List<Marks> getTopMarks6() {
         Double top = marksRepository.findMaxMarks6();
         return marksRepository.findAllByMarks6(top);
     }
 
     public List<Student> getAggregate(Integer aggregate) {
-        
+
         List<Marks> allMarksList = marksRepository.findAll();
         Double sum = 0.0;
         Double finalAggregate = 0.0;
         List<Student> topAggreegateStudents = new ArrayList<>();
-        for(Marks m: allMarksList){
-            sum = m.getMarks1()+m.getMarks2()+m.getMarks3()+m.getMarks4()+m.getMarks5()+m.getMarks6();
-            finalAggregate = (sum/6);
-            
-            if(finalAggregate >= aggregate){
+        for (Marks m : allMarksList) {
+            sum = m.getMarks1() + m.getMarks2() + m.getMarks3() + m.getMarks4() + m.getMarks5() + m.getMarks6();
+            finalAggregate = (sum / 6);
+
+            if (finalAggregate >= aggregate) {
                 Student s = studentRepository.findById(m.getStudent().getId()).get();
                 topAggreegateStudents.add(s);
             }

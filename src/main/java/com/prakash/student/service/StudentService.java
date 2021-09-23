@@ -9,17 +9,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StudentService{
+public class StudentService {
 
     @Autowired
     StudentRepository studentRepository;
-
 
     public Student saveStudent(Student s) {
         return studentRepository.save(s);
     }
 
-    public Student getStudentByClassAndRollNo(Integer studentClass,Integer studentRoll) {
+    public Student getStudentByClassAndRollNo(Integer studentClass, Integer studentRoll) {
 
         return studentRepository.findByStudentClassAndStudentRollNo(studentClass, studentRoll);
     }
@@ -28,9 +27,9 @@ public class StudentService{
         return studentRepository.findAll();
     }
 
-    public void deleteStudent(Integer studentClass,Integer studentRoll) throws ResourceNotFoundException {
+    public void deleteStudent(Integer studentClass, Integer studentRoll) throws ResourceNotFoundException {
         Student s = studentRepository.findByStudentClassAndStudentRollNo(studentClass, studentRoll);
-        if(s == null){
+        if (s == null) {
             throw new ResourceNotFoundException("Student not found");
         }
         studentRepository.deleteById(s.getId());
@@ -38,10 +37,10 @@ public class StudentService{
 
     public Student editStudent(Student student) throws ResourceNotFoundException {
         Student s = studentRepository.findByStudentClassAndStudentRollNo(student.getStudentClass(),
-                                                                         student.getStudentRollNo());
-    if(s == null){
-        throw new ResourceNotFoundException("Student not found");
-    }
+                student.getStudentRollNo());
+        if (s == null) {
+            throw new ResourceNotFoundException("Student not found");
+        }
         s.setStudentName(student.getStudentName());
         s.setStudentClass(student.getStudentClass());
         s.setStudentRollNo(student.getStudentRollNo());
