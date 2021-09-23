@@ -70,4 +70,10 @@ public class Student {
         this.studentClass = studentClass;
     }
 
+    @Override
+    public String toString() {
+        return "Student [id=" + id + ", studentClass=" + studentClass + ", studentName=" + studentName
+                + ", studentRollNo=" + studentRollNo + "]";
+    }
+
 }

@@ -14,4 +14,5 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     Student findByStudentClassAndStudentRollNo(Integer studentClass, Integer studentRoll);
 
     List<Student> findAllByStudentClass(Integer studentClass);
+
 }

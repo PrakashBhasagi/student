@@ -14,6 +14,10 @@ public class StudentService {
     @Autowired
     StudentRepository studentRepository;
 
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
     public Student saveStudent(Student s) {
         return studentRepository.save(s);
     }
@@ -29,6 +33,7 @@ public class StudentService {
 
     public void deleteStudent(Integer studentClass, Integer studentRoll) throws ResourceNotFoundException {
         Student s = studentRepository.findByStudentClassAndStudentRollNo(studentClass, studentRoll);
+        System.out.println(s);
         if (s == null) {
             throw new ResourceNotFoundException("Student not found");
         }
