@@ -33,7 +33,6 @@ public class StudentService {
 
     public void deleteStudent(Integer studentClass, Integer studentRoll) throws ResourceNotFoundException {
         Student s = studentRepository.findByStudentClassAndStudentRollNo(studentClass, studentRoll);
-        System.out.println(s);
         if (s == null) {
             throw new ResourceNotFoundException("Student not found");
         }
