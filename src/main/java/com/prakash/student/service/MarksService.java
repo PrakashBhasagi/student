@@ -31,8 +31,8 @@ public class MarksService {
         marksRepository.deleteById(id);
     }
 
-    public void updateMarks(Marks m) {
-        marksRepository.save(m);
+    public Marks updateMarks(Marks m) {
+        return marksRepository.save(m);
     }
 
     public List<Marks> getTopMarks1() {

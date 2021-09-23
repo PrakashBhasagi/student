@@ -117,4 +117,10 @@ public class Marks {
         this.marks6 = marks6;
     }
 
+    @Override
+    public String toString() {
+        return "Marks [id=" + id + ", marks1=" + marks1 + ", marks2=" + marks2 + ", marks3=" + marks3 + ", marks4="
+                + marks4 + ", marks5=" + marks5 + ", marks6=" + marks6 + ", student=" + student + "]";
+    }
+
 }
